@@ -29,5 +29,5 @@ jobs:
       uses: actions/checkout@v2.4.2
 
     - name: Build and Deploy 🚀
-      uses: carry0987/gitbook-build-publish-action@v1.0.0
+      uses: carry0987/gitbook-publish-action@v1.0.0
 ```
