@@ -1,4 +1,4 @@
-name: 'Automatically Build and Publish GitBook'
+name: 'Automatically Build & Publish GitBook'
 
 description: 'Build GitBook files and deploy to GitHub Pages'
 
