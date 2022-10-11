@@ -1,2 +1,33 @@
-# gitbook-publish-action
-To build GitBook and deploy to GitHub Page via gh-pages branch
+# GitHub Action for Automatically Build and Publish Gitbook
+
+## Introduction
+
+The GitHub Action is used to build GitBook static site files and deploy to GitHub Pages via gh-pages branch
+
+## Usage
+```yaml
+name: Build and Publish My GitBook
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    env:
+      MY_SECRET   : ${{secrets.GH_ACCESS_TOKEN}}
+      USER_NAME   : <Your Git username>
+      USER_EMAIL  : <Your Git email>
+      BOOK_DIR    : your_book_sources_folder_name
+
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v2.4.2
+
+    - name: Build and Deploy 🚀
+      uses: carry0987/gitbook-build-publish-action@v1.0.0
+```
