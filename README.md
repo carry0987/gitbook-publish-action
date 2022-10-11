@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The GitHub Action is used to build GitBook static site files and deploy to GitHub Pages via gh-pages branch
+This GitHub Action is used to build GitBook static site files and deploy to GitHub Pages via gh-pages branch
 
 ## Usage
 ```yaml
