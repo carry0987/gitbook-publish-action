@@ -38,13 +38,9 @@ echo '[INFO] Start to build Gitbook static files...'
 ls -al
 cp -rf "$BOOK_DIR"/* /gitbook/
 cd /gitbook || exit
-if [ ! -d "node_modules" ]; then
-    echo '[INFO] node_modules directory not found, running gitbook install...'
-    npm i colors@1.4.0
-    gitbook install
-fi
+npm i colors@1.4.0
 cd - || exit
-sh /root/custom-entrypoint.sh "gitbook init && gitbook build"
+sh /root/custom-entrypoint.sh "gitbook init && gitbook install && gitbook build"
 checkIfErr
 ls -al /gitbook/_book
 checkIfErr
