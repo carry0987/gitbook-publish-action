@@ -36,15 +36,19 @@ echo "pwd=[$(pwd)]"
 echo '[INFO] Start to build Gitbook static files...'
 
 ls -al
-cp -rf $BOOK_DIR/* /gitbook/
-cd /gitbook
-npm i colors@1.4.0
-cd -
-sh /root/custom-entrypoint.sh "gitbook init && gitbook install && gitbook build"
+cp -rf "$BOOK_DIR"/* /gitbook/
+cd /gitbook || exit
+if [ ! -d "node_modules" ]; then
+    echo '[INFO] node_modules directory not found, running gitbook install...'
+    npm i colors@1.4.0
+    gitbook install
+fi
+cd - || exit
+sh /root/custom-entrypoint.sh "gitbook init && gitbook build"
 checkIfErr
 ls -al /gitbook/_book
 checkIfErr
-cp -rf /gitbook/_book $BOOK_DIR/
+cp -rf /gitbook/_book "$BOOK_DIR"/
 echo '[INFO] Finished to build Gitbook static files.'
 ls -al
 
@@ -52,25 +56,25 @@ ls -al
 # Deploy
 ###############
 echo '[INFO] Start to deploy...'
-cd ${GITHUB_WORKSPACE}
+cd "${GITHUB_WORKSPACE}" || exit
 ls -al
 
 echo '[INFO] Clone repository and switch to branch gh-pages...'
-git clone "https://${MY_SECRET}@github.com/${GITHUB_REPOSITORY}.git" ${GH_PAGES_FOLDER}
+git clone "https://${MY_SECRET}@github.com/${GITHUB_REPOSITORY}.git" "${GH_PAGES_FOLDER}"
 checkIfErr
-cd ${GH_PAGES_FOLDER}
+cd "${GH_PAGES_FOLDER}" || exit
 git checkout -b gh-pages
 checkIfErr
-cd -
+cd - || exit
 
 echo '[INFO] Copy GitBook output pages...'
 ls -al
-cp -rf $GH_PAGES_FOLDER/.git ../dot_git_temp
-rm -rf $GH_PAGES_FOLDER
-mkdir -p $GH_PAGES_FOLDER
-cp -rf ../dot_git_temp $GH_PAGES_FOLDER/.git
-cp -rf $OUTPUT_DIR/* $GH_PAGES_FOLDER/
-cd $GH_PAGES_FOLDER
+cp -rf "$GH_PAGES_FOLDER"/.git ../dot_git_temp
+rm -rf "$GH_PAGES_FOLDER"
+mkdir -p "$GH_PAGES_FOLDER"
+cp -rf ../dot_git_temp "$GH_PAGES_FOLDER"/.git
+cp -rf "$OUTPUT_DIR"/* "$GH_PAGES_FOLDER"/
+cd "$GH_PAGES_FOLDER" || exit
 ls -al
 
 echo '[INFO] Add new commit for gh-pages...'
