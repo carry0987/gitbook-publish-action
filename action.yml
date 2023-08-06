@@ -1,13 +1,9 @@
 name: 'Automatically Build & Publish GitBook'
-
 description: 'Build GitBook files and deploy to GitHub Pages'
-
 author: 'carry0987'
-
 branding:
   icon: 'book'
   color: 'blue'
-
 runs:
   using: 'docker'
   image: 'Dockerfile'
