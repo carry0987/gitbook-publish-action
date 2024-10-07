@@ -31,5 +31,5 @@ jobs:
         fetch-depth: 0
 
     - name: Build and Deploy 🚀
-      uses: carry0987/gitbook-publish-action@v1.0.1
+      uses: carry0987/gitbook-publish-action@v1.0.2
 ```
